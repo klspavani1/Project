@@ -1,0 +1,10 @@
+Explanation of the code:-
+
+Challenge 0:-
+Challenge 0 is to build an API.
+For that, I had created three Golang files named aven.go,mutant.go and antihero.go to build RESTful API's.
+On executing these Golang files, API's are build which gives a list of character and its power level.
+Condition is that power level has to change for every 10 sec interval so that I have used Golang Tickers and math Random numbers.
+On using Tickers, the value changes for every 10 secs interval and that value is also a random number between 0 to 100.
+I had solved Challenge 0 and need to learn more about microservices in order to work with Challenge 1 and Challenge 2.
+I am working with gRPC microservice and it is not completed. Once it is completed I will start working with Challenge 1 and Challenge 2 and try to complete it as soon as possible.
