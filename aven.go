@@ -1,60 +1,56 @@
-//GoLang Program to build an Avengers API
-
-package main
+package API
 
 import (
-    "fmt"
-    "log"
-    "net/http"
-    "encoding/json"
-    "math/rand"
-    "time"
+
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"time"
+	"math/rand"
 )
-type Avengers struct{
-    Name string `json:"Name"`
-    Power int `json:"Power"`
-    
+
+type Avengers struct {
+	Nam string `json:"Avengers"`
+	Avengers []Ch `json:"Character"`
 }
-//Specified values from 1 to 6 are used to store random values for every 10 sec interval
-var value1 int
-var value2 int
-var value3 int
-var value4 int
-var value5 int
-var value6 int
-type aven []Avengers
-func allAvengers(w http.ResponseWriter, r *http.Request) {
+
+type Ch struct {
+	Name string `json:"name"`
+	Power int `json:"max_power"`
+
+}
+
+
+func aven(name string) {
+	var value1 int
+	var p int
 	t:=time.Second
 	//Tick is used to execute the program for every specified time interval(10 sec in this program)
 	s :=time.Tick(10*t)
 	for range s{
-	value1 =rand.Intn(100)
-	value2 =rand.Intn(100)
-	value3 =rand.Intn(100)
-	value4 =rand.Intn(100)
-	value5 =rand.Intn(100)
-	value6 =rand.Intn(100)
-	break
+		file,_:=ioutil.ReadFile("Avengers.json")
+		data:=Avengers{}
+		_=json.Unmarshal([]byte(file),&data)
+
+		for i:=0;i<len(data.Avengers);i++ {
+			n :=data.Avengers[i].Name
+			rand.Seed(time.Now().UnixNano())
+			value1=rand.Intn(100)
+
+			if (name==n) {
+
+				p = value1
+			}
+		break	
+			
 	}
-    	a := aven{
-        Avengers{"Iron man",value1},Avengers{"Captain America",value2},Avengers{"Spider man",value3},Avengers{"Black Panther",value4},Avengers{"Vision",value5},Avengers{"Hawk eye",value6},
+	break
+	fmt.Println(p)
+
 }
-    fmt.Println("Endpoint Hit:All Avengers Endpoint")
-    json.NewEncoder(w).Encode(a)
-    
-  
-}
-
-func homePage(w http.ResponseWriter, r *http.Request){
-    fmt.Fprintf(w, "Homepage Endpoint Hit")
-}
-
-func main() {
-  http.HandleFunc("/",homePage)
-    http.HandleFunc("/aven",allAvengers)
-    log.Fatal(http.ListenAndServe(":8081",nil))
-}
+}	
 
 
 
-//Output:-Execute the go program and go to browser and type localhost:8081/aven to get output and again refresh the page after 10 sec to get new value of the power.
+
+
